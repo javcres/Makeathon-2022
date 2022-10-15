@@ -1,13 +1,15 @@
 #include "DHT.h"
 #define DHTPIN 2     
-#define DHTTYPE DHT22   
+#define DHTTYPE DHT11
+#include <avr/sleep.h>
 
 DHT dht(DHTPIN, DHTTYPE);
+
+int nf = 0;
 
 void setup() {
   Serial.begin(9600);
   Serial.println("DHTxx test!");
-
   dht.begin();
 }
 
@@ -17,9 +19,13 @@ void loop() {
   float h = dht.readHumidity();
   float t = dht.readTemperature();
   float f = dht.readTemperature(true);
-
+  
   if (isnan(h) || isnan(t) || isnan(f)) {
     Serial.println("Failed to read from DHT sensor!");
+    nf ++;
+    if(nf == 10){
+      sleep_mode();
+    }
     return;
   }
 
