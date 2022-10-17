@@ -26,11 +26,12 @@ void setup() {
 
 void loop() {
 
-  delay(10000);
+  delay(5000);
   float h = dht.readHumidity();
   float t = dht.readTemperature();
+  int luz = analogRead(A0);
 
-  if (isnan(h) || isnan(t)) {
+  if (isnan(h) || isnan(t) || isnan(luz)) {
     Serial.println("No se ha podido leer del sensor!");
     // nf ++;
     // if(nf == 10){
@@ -44,5 +45,7 @@ void loop() {
 
   Serial.print(t);
   Serial.print(",");
-  Serial.println(h);
+  Serial.print(h);
+  Serial.print(",");
+  Serial.println(luz);
 }
