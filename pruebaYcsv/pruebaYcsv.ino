@@ -41,12 +41,12 @@ void setup() {
 
 void loop() {
 
-  delay(3000);
+  delay(5000);
   float h = dht.readHumidity();
   float t = dht.readTemperature();
-  int l = analogRead(A0);
+  int luz = analogRead(A0);
 
-  if (isnan(h) || isnan(t) || isnan(l)) {
+  if (isnan(h) || isnan(t) || isnan(luz)) {
     Serial.println("No se ha podido leer del sensor!");
     // nf ++;
     // if(nf == 10){
@@ -62,20 +62,5 @@ void loop() {
   Serial.print(",");
   Serial.print(h);
   Serial.print(",");
-  Serial.println(l);
-
-  myFile = SD.open(FILE_NAME, FILE_WRITE);//abrimos  el archivo 
-  if (myFile) {
-    Serial.println("Archivo abierto con exito");
-  } else {
-    Serial.println("Error al abrir el archivo");
-  }
-
-  myFile.print(t);
-  myFile.print(",");
-  myFile.print(h);
-  myFile.print(",");
-  myFile.println(l);
-
-  myFile.close();
+  Serial.println(luz);
 }
